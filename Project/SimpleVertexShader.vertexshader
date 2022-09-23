@@ -1,0 +1,43 @@
+#version 330 core
+
+// Input vertex data, different for all executions of this shader.
+layout(location = 0) in vec3 vertexPosition_modelspace;
+
+// attribut normales
+layout(location = 1) in vec3 VertexNormal;
+
+// attribut texture
+layout(location = 2) in vec2 VertexTexture;
+
+
+out vec3 vnormal;
+out vec3 vpos;
+out vec2 vtexture;
+
+uniform mat4 MVP;
+uniform mat4 Model;
+
+void main()
+{
+
+	gl_Position = MVP * vec4(vertexPosition_modelspace, 1);
+
+
+    //position du fragment
+	vpos = vec3(Model * vec4(vertexPosition_modelspace, 1)) ;
+
+	//vecteur normal multiplié par la bonne config de model
+
+
+	mat3 m = mat3(transpose(inverse(Model)));
+
+	vec3 v = m * VertexNormal;
+
+	vnormal= v;
+
+	//vecteur texture
+
+	vtexture = VertexTexture;
+
+
+}

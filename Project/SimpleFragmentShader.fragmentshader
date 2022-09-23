@@ -1,0 +1,69 @@
+#version 330 core
+
+// Ouput data
+
+in vec3 vpos;
+in vec3 vnormal;
+in vec2 vtexture;
+
+//lumiere ambiante
+uniform vec3 lightA;
+
+//lumiere diffuse
+uniform vec3 lightD;
+
+//lumiere speculaire
+uniform vec3 lightS;
+
+//N de la lumiere spec
+uniform float lightN;
+
+// to know if an object has a texture or not
+uniform float isTextured;
+
+//position de la camera
+uniform vec3 camPos;
+
+//position de la source lumineuse
+uniform vec3 lightPos;
+
+uniform sampler2D myTexture;
+
+out vec4 color;
+
+void main()
+{
+
+        //DANS CE PROGRAMME JE SUPPOSE QUE LA COULEUR DE LA LUMIERE EST BLANCHE
+        vec3 norm = normalize(vnormal);
+
+        // LUMIERE AMBIANTE
+        float Iambiante = 0.4f;
+        vec3 ambiante = lightA * Iambiante;
+
+        //LUMIERE DIFFUSE:
+        vec3 lightDir = normalize(lightPos - vpos);
+        float diff = max(dot(norm, lightDir), 0.0);
+        float Idiffuse = 0.5f;
+
+        vec3 diffuse = diff * lightD * Idiffuse;
+
+        // LUMIERE SPECULAIRE
+        float Ispecular = 1.0f;
+        vec3 viewDir = normalize(camPos - vpos);
+        vec3 reflectDir = reflect(-lightDir, norm);
+        float spec = pow(max(dot(viewDir, reflectDir), 0.0), int(lightN));
+        vec3 specular = spec * Ispecular * lightS;
+
+        // si c'est un objet avec une texture
+        if (isTextured == 1.0f)
+        {
+
+                color = vec4(texture(myTexture, vtexture).xyz * (ambiante + diffuse) + specular, 1.0);
+        }
+        else
+        {
+
+                color = vec4(ambiante + diffuse + specular, 1.0);
+        }
+}
