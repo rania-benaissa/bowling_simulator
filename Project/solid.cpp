@@ -1,5 +1,5 @@
-#include "Solid.h"
-#include "OBJParser.hpp"
+#include "solid.hpp"
+#include "objParser.hpp"
 
 
 Solid::Solid(char path[])
@@ -114,7 +114,7 @@ void Solid::drawSolid(GLuint IDs []){
         glBindVertexArray(VAO);
 
 
-    for(int i =0 ; i <  ambiantes.size();i++){
+    for(int i =0 ; i <  int(ambiantes.size());i++){
 
               //on envoie la couleur ambiante
             glUniform3fv(IDs[1], 1, &ambiantes[i][0]);

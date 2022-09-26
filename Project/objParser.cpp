@@ -12,7 +12,7 @@
 #include <GL/glew.h>
 #include <GL/freeglut.h>
 
-#include "OBJParser.hpp"
+#include "objParser.hpp"
 
 
 

@@ -4,13 +4,14 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <cstddef>
 #include <iostream>
+#include <unistd.h>
 #include <time.h>
 #include <GL/glew.h>
 #include <GL/freeglut.h>
-#include <shader.hpp>
-#include "OBJParser.hpp"
+#include "shader.hpp"
+#include "objParser.hpp"
 #include <math.h>
-#include "Solid.h"
+#include "solid.hpp"
 
 using namespace std;
 using namespace glm;
@@ -265,7 +266,7 @@ void KeyPressed (unsigned char touche, int x, int y){
 
     float speed = 0.1f;
 
-    float speedArrow = 0.07f;
+    //float speedArrow = 0.07f;
 
     switch (touche)
     {
@@ -380,7 +381,7 @@ void animateBall(void){
      if(zTranslations <= -40.0f){
 
 
-        Sleep(200);
+        sleep(1);
         copyArray(alreadyDown,hit);
         reInitBallPosition();
 
@@ -483,11 +484,19 @@ int main(int argc, char** argv)
 
     glutInitContextFlags(GLUT_CORE_PROFILE);
 
-    __glutCreateWindowWithExit("TP OpenGL", ExitFunction);
+      // on execute une fonction de nettoyage a la fin
+    glutCreateWindow("TP OpenGL");
 
-    glewExperimental = TRUE;
 
-    glewInit();
+    // init glew
+    glewExperimental = GL_TRUE;
+    GLenum err = glewInit();
+    if (GLEW_OK != err)
+    {
+    /* Problem: glewInit failed, something is seriously wrong. */
+    fprintf(stderr, "Error: %s\n", glewGetErrorString(err));
+    }
+
 
     glEnable(GL_DEPTH_TEST);
 
@@ -567,6 +576,6 @@ int main(int argc, char** argv)
 
 
     glutMainLoop() ;
-
+    ExitFunction(0);
     return(0) ;
 }
