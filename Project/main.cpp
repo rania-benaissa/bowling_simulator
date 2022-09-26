@@ -3,12 +3,12 @@
 #include <glm/gtc/type_ptr.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <cstddef>
-#include <iostream>
 #include <unistd.h>
+#include <iostream>
 #include <time.h>
 #include <GL/glew.h>
 #include <GL/freeglut.h>
-#include "shader.hpp"
+#include <shader.hpp>
 #include "objParser.hpp"
 #include <math.h>
 #include "solid.hpp"
@@ -266,7 +266,7 @@ void KeyPressed (unsigned char touche, int x, int y){
 
     float speed = 0.1f;
 
-    //float speedArrow = 0.07f;
+    float speedArrow = 0.07f;
 
     switch (touche)
     {
@@ -476,7 +476,7 @@ int main(int argc, char** argv)
 
     glutInitDisplayMode(GLUT_DOUBLE|GLUT_DEPTH);
 
-    glutInitWindowSize(720, 720);
+    glutInitWindowSize(1080, 720);
 
     glutInitWindowPosition(100, 100);
 
@@ -484,7 +484,7 @@ int main(int argc, char** argv)
 
     glutInitContextFlags(GLUT_CORE_PROFILE);
 
-      // on execute une fonction de nettoyage a la fin
+       // on execute une fonction de nettoyage a la fin
     glutCreateWindow("TP OpenGL");
 
 
@@ -497,6 +497,8 @@ int main(int argc, char** argv)
     fprintf(stderr, "Error: %s\n", glewGetErrorString(err));
     }
 
+
+    glewInit();
 
     glEnable(GL_DEPTH_TEST);
 
@@ -533,7 +535,7 @@ int main(int argc, char** argv)
 
 
 
-    programID = LoadShaders( "SimpleVertexShader.vertexshader", "SimpleFragmentShader.fragmentshader" );
+    programID = LoadShaders( "include/SimpleVertexShader.vertexshader", "include/SimpleFragmentShader.fragmentshader" );
 
     // A ENVOYER AU SHADER
 

@@ -1,8 +1,9 @@
 #include "solid.hpp"
 #include "objParser.hpp"
+#include <filesystem>
 
 
-Solid::Solid(char path[])
+Solid::Solid(char const* path)
 {
 
     loadOBJ(path,positions,textures, normals,ambiantes,diffuses,speculaires,nSpeculaires);
@@ -64,12 +65,14 @@ void Solid::initSolid(){
 }
 
 
-void Solid::initTexture(char fileName[])
+void Solid::initTexture(char const * fileName)
 {
 
-     char data[128*128*3];
+    char data[128*128*3];
 
-    FILE *f = fopen(fileName, "rb");
+    std::string texturesPath = std::filesystem::current_path().string()+"/textures/";
+
+    FILE *f = fopen((texturesPath + fileName).c_str(), "rb");
 
     if(f)
     {

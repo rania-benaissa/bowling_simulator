@@ -46,12 +46,12 @@ class Solid
         // num de texture
         GLuint texture;
 
-        Solid(char path[]);
+        Solid(char const *path);
         Solid();
 
         void drawSolid(GLuint IDs []);
 
-        void initTexture(char fileName[]);
+        void initTexture(char const* fileName);
 
         void initSolid();
 

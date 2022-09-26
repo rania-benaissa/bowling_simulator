@@ -8,7 +8,7 @@
 #include <glm/gtx/transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 #include <glm/gtc/matrix_transform.hpp>
-
+#include <filesystem>
 #include <GL/glew.h>
 #include <GL/freeglut.h>
 
@@ -31,6 +31,8 @@ Material mat[10];
 int indice = -1;
 
 
+std::string texturesPath;
+
 // Very, VERY simple OBJ loader.
 
 
@@ -42,6 +44,8 @@ bool loadOBJ(const char * path,std::vector<glm::vec3> & out_vertices,std::vector
 	std::vector<glm::vec3> temp_vertices;
 	std::vector<glm::vec3> temp_normals;
 	std::vector<glm::vec2> temp_textures;
+
+    texturesPath = std::filesystem::current_path().string()+"/textures/";
 
 
 	glm::vec3 current_ambient;
@@ -58,7 +62,10 @@ bool loadOBJ(const char * path,std::vector<glm::vec3> & out_vertices,std::vector
     int is_textured =0;
 
 
-	FILE * file = fopen(path, "r");
+	FILE * file = fopen((texturesPath+path).c_str(), "r");
+
+
+    printf("%s \n",(texturesPath+path).c_str());
 	if( file == NULL ){
 		printf("Impossible to open the file ! Are you in the right path ? See Tutorial 1 for details\n");
 		getchar();
@@ -105,7 +112,9 @@ bool loadOBJ(const char * path,std::vector<glm::vec3> & out_vertices,std::vector
 
 			fscanf(file, "%s\n",material_path);
             printf("material = %s\n",material_path);
-            material_file = fopen(material_path, "r");
+            material_file = fopen((texturesPath+material_path).c_str(), "r");
+
+            printf("%s \n",(texturesPath+material_path).c_str());
 
             if( material_file == NULL ){
 
