@@ -1,5 +1,5 @@
 # Bowling simulator
-A computer graphics course's project at USTHB, implementation details can be found on the written report : [project report (in french)](rapport_projet_SI.pdf)
+A computer graphics course's project. Implementation details can be found on the written report : [project report (in french)](rapport_projet_SI.pdf)
 	
 ## Technologies
 To run this project, the following libraries are required :
