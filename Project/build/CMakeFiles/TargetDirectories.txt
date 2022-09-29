@@ -1,3 +1,0 @@
-/home/riri/BENAISSA_Rania_projet_SI/Project/build/CMakeFiles/bowlingSim.dir
-/home/riri/BENAISSA_Rania_projet_SI/Project/build/CMakeFiles/edit_cache.dir
-/home/riri/BENAISSA_Rania_projet_SI/Project/build/CMakeFiles/rebuild_cache.dir
